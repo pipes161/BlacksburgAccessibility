@@ -1,0 +1,665 @@
+{% load staticfiles %}
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Blacksburg Accessibility Map</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+
+<!-- ArcGIS JS API v3.19 -->
+<link rel="stylesheet"
+	href="https://js.arcgis.com/3.19/esri/css/esri.css">
+<script src="https://js.arcgis.com/3.19/"></script>
+
+<style>
+.navbar {
+	margin-bottom: 0px;
+}
+
+textarea {
+	width: 100%;
+	height: 100px;
+	max-width: 300px;
+}
+
+select {
+	width: 100%;
+	max-width: 300px;
+}
+
+#browse-map {
+	height: 80vh;
+	margin-bottom: 1em;
+}
+
+#report-restroom-map,#report-ald-map,#report-curbcut-map,#report-bench-map {
+	height: 100vw;
+	margin-bottom: 1em;
+}
+
+#LocateButton {
+	position: relative;
+	top: calc(50vw - .5em);
+	left: calc(50vw - .5em);
+	z-index: 50;
+	color: red;
+	font-size: 3em;
+	height: 0px;
+}
+
+.report-icon {
+	height: 100px;
+	//max-width: 100px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h4 class="text-center">Blacksburg Accessibility Map</h4>
+	</div>
+	<nav class="navbar">
+		<div class="container">
+			<div class="navbar-header">
+				<ul class="nav nav-pills">
+					<li role="presentation"><a data-target="#help">Help</a></li>
+					<li role="presentation"><a data-target="#report">Report</a></li>
+					<li role="presentation"><a data-target="#map">Map</a></li>
+					<li role="presentation"><a data-target="#controls">Map
+							Controls</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<section hidden="true" id="help">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h4>Welcome to the Blacksburg Accessibility Map</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h5>Purpose</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<p>We're trying to improve access in Blacksburg. Blacksburg is a great place to live, but that doesn't mean there aren't challenges. Use the "Report" tab identify accessibility features and places accessibility can be improved. More information coming soon!</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h5>How to Use</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<p>We're just getting started, but we will have a tutorial here soon.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h5>Creators</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<p>We're just getting started, but we will add supporters as the project progresses.</p>
+				</div>
+			</div>
+		</section>
+		<section hidden="true" id="report">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h4>Report Accessibility</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 text-center">
+					<div role="navigation" data-target="#report_restroom" class="row">
+						<div class="col-xs-12 text-center">
+							<img src="{% static "viewer/img/restroom-clipart-restroom.svg" %}" class="report-icon" alt="Public Restroom Sign">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<p>Public Restroom</p>
+						</div>
+					</div>
+				</div>
+				<div role="navigation" data-target="#report_ald" class="col-xs-6 text-center">
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<img src="{% static "viewer/img/Assistive_Listening_Devices_1.JPG" %}" class="report-icon" alt="Assistive Listening Devices (Hearing Loop) Symbol">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<p>Assistive Listening Devices</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div role="navigation" data-target="#report_curbcuts"
+					class="col-xs-6 text-center">
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<img src="{% static "viewer/img/curbcut.jpg" %}" class="report-icon" alt="Picture of a Curb Cut">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<p>Curb Cuts</p>
+						</div>
+					</div>
+				</div>
+				<div role="navigation" data-target="#report_bench" class="col-xs-6 text-center">
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<img src="{% static "viewer/img/49868-200.png" %}" class="report-icon" alt="Bench Icon">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<p>Bench</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section hidden="true" id="map">
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="browse-map"></div>
+				</div>
+			</div>
+		</section>
+		<section hidden="true" id="controls">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h4>Map Controls</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h5>Legend</h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="legend"></div>
+				</div>
+			</div>
+		</section>
+		<section hidden="true" id="report_restroom">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h4>Report Restroom</h4>
+				</div>
+			</div>
+			<form>
+				<div class="row">
+					<div class="col-xs-12">
+						<label>Provide the location of the restroom</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<p>Move the map until the target is directly over the restroom
+							you're reporting.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-13">
+						<div id="LocateButton">
+							<span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+						</div>
+						<div id="report-restroom-map"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<label>Restroom is</label>
+					</div>
+					<div class="col-xs-6">
+						<select><option>Present</option>
+							<option>Absent</option></select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<label>Please describe in more detail</label>
+					</div>
+					<div class="col-sm-6">
+						<textarea></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1">
+						<input id="ada-violation" type="checkbox">
+					</div>
+					<div class="col-xs-10">
+						<label for="ada-violation">This restroom may violate the
+							ADA</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1">
+						<input id="send-to-at-your-request" type="checkbox">
+					</div>
+					<div class="col-xs-10">
+						<label for="send-to-at-your-request">Send this to "At Your
+							Request"</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<input type="submit">
+					</div>
+				</div>
+			</form>
+		</section><section hidden="true" id="report_ald">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h4>Report Assistive Listening Device</h4>
+				</div>
+			</div>
+			<form>
+				<div class="row">
+					<div class="col-xs-12">
+						<label>Provide the location of the Assistive Listening Device</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<p>Move the map until the target is directly over the building/area for the Assistive Listening Device
+							you're reporting.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-13">
+						<div id="LocateButton">
+							<span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+						</div>
+						<div id="report-ald-map"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<label>Device is</label>
+					</div>
+					<div class="col-xs-6">
+						<select><option>Present</option>
+							<option>Absent</option></select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<label>Please describe in more detail</label>
+					</div>
+					<div class="col-sm-6">
+						<textarea></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1">
+						<input id="ada-violation" type="checkbox">
+					</div>
+					<div class="col-xs-10">
+						<label for="ada-violation">This Assistive Listening Device may violate the
+							ADA</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1">
+						<input id="send-to-at-your-request" type="checkbox">
+					</div>
+					<div class="col-xs-10">
+						<label for="send-to-at-your-request">Send this to "At Your
+							Request"</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<input type="submit">
+					</div>
+				</div>
+			</form>
+		</section><section hidden="true" id="report_curbcuts">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h4>Report Curb Cut</h4>
+				</div>
+			</div>
+			<form>
+				<div class="row">
+					<div class="col-xs-12">
+						<label>Provide the location of the curb cut</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<p>Move the map until the target is directly over the curb cut
+							you're reporting.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-13">
+						<div id="LocateButton">
+							<span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+						</div>
+						<div id="report-curbcut-map"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<label>Curb cut is</label>
+					</div>
+					<div class="col-xs-6">
+						<select><option>Present</option>
+							<option>Absent</option></select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<label>Please describe in more detail</label>
+					</div>
+					<div class="col-sm-6">
+						<textarea></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1">
+						<input id="ada-violation" type="checkbox">
+					</div>
+					<div class="col-xs-10">
+						<label for="ada-violation">This curb cut may violate the
+							ADA</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1">
+						<input id="send-to-at-your-request" type="checkbox">
+					</div>
+					<div class="col-xs-10">
+						<label for="send-to-at-your-request">Send this to "At Your
+							Request"</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<input type="submit">
+					</div>
+				</div>
+			</form>
+		</section>
+		<section hidden="true" id="report_bench">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<h4>Report Bench</h4>
+				</div>
+			</div>
+			<form>
+				<div class="row">
+					<div class="col-xs-12">
+						<label>Provide the location of the bench</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<p>Move the map until the target is directly over the bench
+							you're reporting.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-13">
+						<div id="LocateButton">
+							<span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+						</div>
+						<div id="report-bench-map"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<label>Bench is</label>
+					</div>
+					<div class="col-xs-6">
+						<select><option>Present</option>
+							<option>Absent</option></select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<label>Please describe in more detail</label>
+					</div>
+					<div class="col-sm-6">
+						<textarea></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1">
+						<input id="ada-violation" type="checkbox">
+					</div>
+					<div class="col-xs-10">
+						<label for="ada-violation">This bench may violate the
+							ADA</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-1">
+						<input id="send-to-at-your-request" type="checkbox">
+					</div>
+					<div class="col-xs-10">
+						<label for="send-to-at-your-request">Send this to "At Your
+							Request"</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<input type="submit">
+					</div>
+				</div>
+			</form>
+		</section>
+	</div>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							/* Select the starting page */
+							var startingId = "#report_curbcuts";
+							var startingId = "#help";
+							$("[data-target='" + startingId + "']").parent()
+									.addClass("active");
+							$(startingId).show();
+
+							/* Navigation Events */
+							var navElements = $("nav").find("a");
+							navElements.on("click touchstart", function(e) {
+								navElements.parent().removeClass("active");
+								$(e.target).parent().addClass("active");
+
+								$("section").hide();
+								$(e.target.dataset.target).show();
+
+								return false;
+							});
+
+							/* Reporting Navigation Events */
+							var reportNavElements = $("[data-target^='#report_'");
+							reportNavElements.on("click touchstart", function(e) {
+								$("section").hide();
+
+								var parent = $(e.target).closest(
+										"[data-target^='#report_'").get(0);
+								$(parent.dataset.target).show();
+
+								return false;
+							});
+							
+							/* Block form submission */
+							function preventSubmit(evt) {
+								evt.preventDefault();
+								$("section").hide();
+								$("#report").show();
+								return false;
+							}
+							$("input[type='submit']").on("click touchstart", preventSubmit);
+
+							/* Set up map for reporting demo */
+							require([ "esri/map", "esri/geometry/Point",
+									"esri/symbols/SimpleMarkerSymbol",
+									"esri/symbols/SimpleLineSymbol",
+									"esri/graphic", "esri/Color",
+									"esri/geometry/Extent",
+									"esri/SpatialReference",
+									"dojo/domReady!" ], function(Map, Point,
+									SimpleMarkerSymbol, SimpleLineSymbol,
+									Graphic, Color, Extent, SpatialReference) {
+								
+								function setUpReportMap(mapDivId, reportTarget){
+									var reportMap = new Map(mapDivId, {
+										basemap : "hybrid",
+										center : [ -80.4297605, 37.2302538 ],
+										zoom : 14
+									});
+									
+									reportMap.setExtent(new Extent(
+											-8966298.461538462, 4464700,
+											-8940501.538461538, 4477800,
+											new SpatialReference({
+												wkid : 3857
+											})), true); 
+									/*navigator.geolocation
+											.getCurrentPosition(zoomToLocation);*/
+									var geolocationPoint;
+									function zoomToLocation(location) {
+										geolocationPoint = new Point(
+												location.coords.longitude,
+												location.coords.latitude);
+										reportMap.centerAndZoom(geolocationPoint);
+									}
+									$("[data-target^='#report_"+reportTarget+"']").on("click touchstart", function(){
+										reportMap.on('resize', function(){
+											var resizeTimer;
+											clearTimeout(resizeTimer);  
+										    resizeTimer = setTimeout( function() {
+										    	if(geolocationPoint){
+										    		reportMap.centerAndZoom(geolocationPoint, 16);
+										    	} else {
+										    		reportMap.setExtent(new Extent(
+															-8966298.461538462, 4464700,
+															-8940501.538461538, 4477800,
+															new SpatialReference({
+																wkid : 3857
+															})), true);
+										    	}
+										    }, 500);  
+										});								
+									});
+								}
+								setUpReportMap("report-restroom-map", "restroom");
+								setUpReportMap("report-ald-map", "ald");
+								setUpReportMap("report-curbcut-map", "curbcut");
+								setUpReportMap("report-bench-map", "bench");
+								
+							});
+
+							/* Set up map for browsing demo */
+							require(
+									[
+											"esri/map",
+											"esri/geometry/Point",
+											"esri/layers/ArcGISDynamicMapServiceLayer",
+											"esri/dijit/Legend",
+											"esri/geometry/Extent",
+											"esri/SpatialReference",
+											"dojo/domReady!" ],
+									function(Map, Point,
+											ArcGISDynamicMapServiceLayer,
+											Legend, Extent, SpatialReference) {
+										browseMap = new Map("browse-map",
+												{
+													basemap : "topo",
+													center : [ -80.4297605,
+															37.2302538 ],
+													zoom : 14
+												});
+
+										browseMap.setExtent(new Extent(
+												-8966298.461538462, 4464700,
+												-8940501.538461538, 4477800,
+												new SpatialReference({
+													wkid : 3857
+												})), true); 
+										/*navigator.geolocation
+												.getCurrentPosition(zoomToLocation);*/
+										var geolocationPoint;
+										function zoomToLocation(location) {
+											geolocationPoint = new Point(
+													location.coords.longitude,
+													location.coords.latitude);
+											browseMap.centerAndZoom(geolocationPoint);
+										}	
+										$("[data-target='#map']").on('click touchstart', function(){
+											browseMap.on('resize', function(){
+												var resizeTimer;
+												clearTimeout(resizeTimer);  
+											    resizeTimer = setTimeout( function() {
+											    	if(geolocationPoint){
+											    		console.log("g");
+											    		browseMap.centerAndZoom(geolocationPoint, 16);
+											    	} else {
+											    		console.log("e");
+														browseMap.setExtent(new Extent(
+																-8966298.461538462, 4464700,
+																-8940501.538461538, 4477800,
+																new SpatialReference({
+																	wkid : 3857
+																})), true);
+											    	}
+											    }, 500);  
+											});								
+										});
+
+										var dynamicMapServiceLayer = new ArcGISDynamicMapServiceLayer(
+												"https://www.webgis.net/arcgis/rest/services/VA/Blacksburg_WebGIS1/MapServer");
+										dynamicMapServiceLayer
+												.setVisibleLayers([ 0, 2, 6, 9,
+														16, 27, 29 ]);
+
+										browseMap
+												.addLayer(dynamicMapServiceLayer);
+
+										var legend = new Legend({
+											map : browseMap,
+										}, "legend");
+										legend.startup();
+									});
+						});
+	</script>
+</body>
+</html>
