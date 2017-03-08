@@ -54,7 +54,8 @@ select {
 	margin-bottom: 1em;
 }
 
-#report-restroom-map,#report-ald-map,#report-curbcut-map,#report-bench-map {
+#report-restroom-map, #report-ald-map, #report-curbcut-map,
+	#report-bench-map {
 	height: 100vw;
 	margin-bottom: 1em;
 }
@@ -70,8 +71,8 @@ select {
 }
 
 .report-icon {
-	height: 100px;
-	//max-width: 100px;
+	height: 100px; //
+	max-width: 100px;
 }
 </style>
 </head>
@@ -106,7 +107,11 @@ select {
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<p>We're trying to improve access in Blacksburg. Blacksburg is a great place to live, but that doesn't mean there aren't challenges. Use the "Report" tab identify accessibility features and places accessibility can be improved. More information coming soon!</p>
+					<p>We're trying to improve access in Blacksburg. Blacksburg is
+						a great place to live, but that doesn't mean there aren't
+						challenges. Use the "Report" tab identify accessibility features
+						and places accessibility can be improved. More information coming
+						soon!</p>
 				</div>
 			</div>
 			<div class="row">
@@ -116,7 +121,8 @@ select {
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<p>We're just getting started, but we will have a tutorial here soon.</p>
+					<p>We're just getting started, but we will have a tutorial here
+						soon.</p>
 				</div>
 			</div>
 			<div class="row">
@@ -126,7 +132,8 @@ select {
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
-					<p>We're just getting started, but we will add supporters as the project progresses.</p>
+					<p>We're just getting started, but we will add supporters as
+						the project progresses.</p>
 				</div>
 			</div>
 		</section>
@@ -140,7 +147,8 @@ select {
 				<div class="col-xs-6 text-center">
 					<div role="navigation" data-target="#report_restroom" class="row">
 						<div class="col-xs-12 text-center">
-							<img src="{% static "viewer/img/restroom-clipart-restroom.svg" %}" class="report-icon" alt="Public Restroom Sign">
+							<img src="{% static "viewer/img/restroom-clipart-restroom.svg" %}" class="report-icon"
+								alt="Public Restroom Sign">
 						</div>
 					</div>
 					<div class="row">
@@ -149,10 +157,12 @@ select {
 						</div>
 					</div>
 				</div>
-				<div role="navigation" data-target="#report_ald" class="col-xs-6 text-center">
+				<div role="navigation" data-target="#report_ald"
+					class="col-xs-6 text-center">
 					<div class="row">
 						<div class="col-xs-12 text-center">
-							<img src="{% static "viewer/img/Assistive_Listening_Devices_1.JPG" %}" class="report-icon" alt="Assistive Listening Devices (Hearing Loop) Symbol">
+							<img src="{% static "viewer/img/Assistive_Listening_Devices_1.JPG" %}" class="report-icon"
+								alt="Assistive Listening Devices (Hearing Loop) Symbol">
 						</div>
 					</div>
 					<div class="row">
@@ -167,7 +177,8 @@ select {
 					class="col-xs-6 text-center">
 					<div class="row">
 						<div class="col-xs-12 text-center">
-							<img src="{% static "viewer/img/curbcut.jpg" %}" class="report-icon" alt="Picture of a Curb Cut">
+							<img src="{% static "viewer/img/curbcut.jpg" %}" class="report-icon"
+								alt="Picture of a Curb Cut">
 						</div>
 					</div>
 					<div class="row">
@@ -176,10 +187,12 @@ select {
 						</div>
 					</div>
 				</div>
-				<div role="navigation" data-target="#report_bench" class="col-xs-6 text-center">
+				<div role="navigation" data-target="#report_bench"
+					class="col-xs-6 text-center">
 					<div class="row">
 						<div class="col-xs-12 text-center">
-							<img src="{% static "viewer/img/49868-200.png" %}" class="report-icon" alt="Bench Icon">
+							<img src="{% static "viewer/img/49868-200.png" %}" class="report-icon"
+								alt="Bench Icon">
 						</div>
 					</div>
 					<div class="row">
@@ -281,7 +294,8 @@ select {
 					</div>
 				</div>
 			</form>
-		</section><section hidden="true" id="report_ald">
+		</section>
+		<section hidden="true" id="report_ald">
 			<div class="row">
 				<div class="col-xs-12 text-center">
 					<h4>Report Assistive Listening Device</h4>
@@ -290,13 +304,15 @@ select {
 			<form>
 				<div class="row">
 					<div class="col-xs-12">
-						<label>Provide the location of the Assistive Listening Device</label>
+						<label>Provide the location of the Assistive Listening
+							Device</label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
-						<p>Move the map until the target is directly over the building/area for the Assistive Listening Device
-							you're reporting.</p>
+						<p>Move the map until the target is directly over the
+							building/area for the Assistive Listening Device you're
+							reporting.</p>
 					</div>
 				</div>
 				<div class="row">
@@ -329,8 +345,8 @@ select {
 						<input id="ada-violation" type="checkbox">
 					</div>
 					<div class="col-xs-10">
-						<label for="ada-violation">This Assistive Listening Device may violate the
-							ADA</label>
+						<label for="ada-violation">This Assistive Listening Device
+							may violate the ADA</label>
 					</div>
 				</div>
 				<div class="row">
@@ -348,7 +364,8 @@ select {
 					</div>
 				</div>
 			</form>
-		</section><section hidden="true" id="report_curbcuts">
+		</section>
+		<section hidden="true" id="report_curbcuts">
 			<div class="row">
 				<div class="col-xs-12 text-center">
 					<h4>Report Curb Cut</h4>
@@ -464,8 +481,7 @@ select {
 						<input id="ada-violation" type="checkbox">
 					</div>
 					<div class="col-xs-10">
-						<label for="ada-violation">This bench may violate the
-							ADA</label>
+						<label for="ada-violation">This bench may violate the ADA</label>
 					</div>
 				</div>
 				<div class="row">
@@ -486,180 +502,52 @@ select {
 		</section>
 	</div>
 	<script>
-		$(document)
-				.ready(
-						function() {
-							/* Select the starting page */
-							var startingId = "#report_curbcuts";
-							var startingId = "#help";
-							$("[data-target='" + startingId + "']").parent()
-									.addClass("active");
-							$(startingId).show();
+		$(document).ready(
+				function() {
+					/* Select the starting page */
+					var startingId = "#report_curbcuts";
+					var startingId = "#help";
+					$("[data-target='" + startingId + "']").parent().addClass(
+							"active");
+					$(startingId).show();
 
-							/* Navigation Events */
-							var navElements = $("nav").find("a");
-							navElements.on("click touchstart", function(e) {
-								navElements.parent().removeClass("active");
-								$(e.target).parent().addClass("active");
+					/* Navigation Events */
+					var navElements = $("nav").find("a");
+					navElements.on("click touchstart", function(e) {
+						navElements.parent().removeClass("active");
+						$(e.target).parent().addClass("active");
 
-								$("section").hide();
-								$(e.target.dataset.target).show();
+						$("section").hide();
+						$(e.target.dataset.target).show();
 
-								return false;
-							});
+						return false;
+					});
 
-							/* Reporting Navigation Events */
-							var reportNavElements = $("[data-target^='#report_'");
-							reportNavElements.on("click touchstart", function(e) {
-								$("section").hide();
+					/* Reporting Navigation Events */
+					var reportNavElements = $("[data-target^='#report_'");
+					reportNavElements.on("click touchstart", function(e) {
+						$("section").hide();
 
-								var parent = $(e.target).closest(
-										"[data-target^='#report_'").get(0);
-								$(parent.dataset.target).show();
+						var parent = $(e.target).closest(
+								"[data-target^='#report_'").get(0);
+						$(parent.dataset.target).show();
 
-								return false;
-							});
-							
-							/* Block form submission */
-							function preventSubmit(evt) {
-								evt.preventDefault();
-								$("section").hide();
-								$("#report").show();
-								return false;
-							}
-							$("input[type='submit']").on("click touchstart", preventSubmit);
+						return false;
+					});
 
-							/* Set up map for reporting demo */
-							require([ "esri/map", "esri/geometry/Point",
-									"esri/symbols/SimpleMarkerSymbol",
-									"esri/symbols/SimpleLineSymbol",
-									"esri/graphic", "esri/Color",
-									"esri/geometry/Extent",
-									"esri/SpatialReference",
-									"dojo/domReady!" ], function(Map, Point,
-									SimpleMarkerSymbol, SimpleLineSymbol,
-									Graphic, Color, Extent, SpatialReference) {
-								
-								function setUpReportMap(mapDivId, reportTarget){
-									var reportMap = new Map(mapDivId, {
-										basemap : "hybrid",
-										center : [ -80.4297605, 37.2302538 ],
-										zoom : 14
-									});
-									
-									reportMap.setExtent(new Extent(
-											-8966298.461538462, 4464700,
-											-8940501.538461538, 4477800,
-											new SpatialReference({
-												wkid : 3857
-											})), true); 
-									/*navigator.geolocation
-											.getCurrentPosition(zoomToLocation);*/
-									var geolocationPoint;
-									function zoomToLocation(location) {
-										geolocationPoint = new Point(
-												location.coords.longitude,
-												location.coords.latitude);
-										reportMap.centerAndZoom(geolocationPoint);
-									}
-									$("[data-target^='#report_"+reportTarget+"']").on("click touchstart", function(){
-										reportMap.on('resize', function(){
-											var resizeTimer;
-											clearTimeout(resizeTimer);  
-										    resizeTimer = setTimeout( function() {
-										    	if(geolocationPoint){
-										    		reportMap.centerAndZoom(geolocationPoint, 16);
-										    	} else {
-										    		reportMap.setExtent(new Extent(
-															-8966298.461538462, 4464700,
-															-8940501.538461538, 4477800,
-															new SpatialReference({
-																wkid : 3857
-															})), true);
-										    	}
-										    }, 500);  
-										});								
-									});
-								}
-								setUpReportMap("report-restroom-map", "restroom");
-								setUpReportMap("report-ald-map", "ald");
-								setUpReportMap("report-curbcut-map", "curbcut");
-								setUpReportMap("report-bench-map", "bench");
-								
-							});
+					/* Block form submission */
+					function preventSubmit(evt) {
+						evt.preventDefault();
+						$("section").hide();
+						$("#report").show();
+						return false;
+					}
+					$("input[type='submit']").on("click touchstart",
+							preventSubmit);
 
-							/* Set up map for browsing demo */
-							require(
-									[
-											"esri/map",
-											"esri/geometry/Point",
-											"esri/layers/ArcGISDynamicMapServiceLayer",
-											"esri/dijit/Legend",
-											"esri/geometry/Extent",
-											"esri/SpatialReference",
-											"dojo/domReady!" ],
-									function(Map, Point,
-											ArcGISDynamicMapServiceLayer,
-											Legend, Extent, SpatialReference) {
-										browseMap = new Map("browse-map",
-												{
-													basemap : "topo",
-													center : [ -80.4297605,
-															37.2302538 ],
-													zoom : 14
-												});
-
-										browseMap.setExtent(new Extent(
-												-8966298.461538462, 4464700,
-												-8940501.538461538, 4477800,
-												new SpatialReference({
-													wkid : 3857
-												})), true); 
-										/*navigator.geolocation
-												.getCurrentPosition(zoomToLocation);*/
-										var geolocationPoint;
-										function zoomToLocation(location) {
-											geolocationPoint = new Point(
-													location.coords.longitude,
-													location.coords.latitude);
-											browseMap.centerAndZoom(geolocationPoint);
-										}	
-										$("[data-target='#map']").on('click touchstart', function(){
-											browseMap.on('resize', function(){
-												var resizeTimer;
-												clearTimeout(resizeTimer);  
-											    resizeTimer = setTimeout( function() {
-											    	if(geolocationPoint){
-											    		console.log("g");
-											    		browseMap.centerAndZoom(geolocationPoint, 16);
-											    	} else {
-											    		console.log("e");
-														browseMap.setExtent(new Extent(
-																-8966298.461538462, 4464700,
-																-8940501.538461538, 4477800,
-																new SpatialReference({
-																	wkid : 3857
-																})), true);
-											    	}
-											    }, 500);  
-											});								
-										});
-
-										var dynamicMapServiceLayer = new ArcGISDynamicMapServiceLayer(
-												"https://www.webgis.net/arcgis/rest/services/VA/Blacksburg_WebGIS1/MapServer");
-										dynamicMapServiceLayer
-												.setVisibleLayers([ 0, 2, 6, 9,
-														16, 27, 29 ]);
-
-										browseMap
-												.addLayer(dynamicMapServiceLayer);
-
-										var legend = new Legend({
-											map : browseMap,
-										}, "legend");
-										legend.startup();
-									});
-						});
+				});
 	</script>
+	<script src="{% static 'viewer/js/submissionForm.js' %}"></script>
+	<script src="{% static 'viewer/js/browseMap.js' %}"></script>
 </body>
 </html>
