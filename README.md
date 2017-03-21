@@ -1,0 +1,3 @@
+# Layer List Spec
+
+Layer list should draw from layers published on Blacksburg's Esri Server instance. Each layer should be connected to an individual checkbox and contain in one row the checkbox, legend, and title. Layers should always be added to the top of the map. Each row needs to toggle the checkbox, not just the area of the checkbox. The row needs to be large enough that finger accuracy does not need to be high to be usable. The layer list should be on a separate page from the map.
